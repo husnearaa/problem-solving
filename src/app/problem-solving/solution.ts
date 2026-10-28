@@ -359,3 +359,144 @@ console.log(JSON.stringify(mergeTest3));
 
 
 
+/* Problem 16: 3Sum */
+
+function threeSum(nums: number[]): number[][] {
+    nums.sort((a, b) => a - b);
+
+    const result: number[][] = [];
+
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+
+        let left = i + 1;
+        let right = nums.length - 1;
+
+        while (left < right) {
+            const sum = nums[i] + nums[left] + nums[right];
+
+            if (sum === 0) {
+                result.push([nums[i], nums[left], nums[right]]);
+
+                left++;
+                right--;
+
+                while (left < right && nums[left] === nums[left - 1]) {
+                    left++;
+                }
+
+                while (left < right && nums[right] === nums[right + 1]) {
+                    right--;
+                }
+            } else if (sum < 0) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+
+    return result;
+}
+
+console.log(JSON.stringify(threeSum([-1, 0, 1, 2, -1, -4])));
+console.log(JSON.stringify(threeSum([0, 1, 1])));
+console.log(JSON.stringify(threeSum([0, 0, 0])));
+
+
+
+
+/* Problem 17: Plus One */
+
+function plusOne(digits: number[]): number[] {
+    for (let i = digits.length - 1; i >= 0; i--) {
+        if (digits[i] < 9) {
+            digits[i]++;
+            return digits;
+        }
+
+        digits[i] = 0;
+    }
+
+    digits.unshift(1);
+    return digits;
+}
+
+console.log(JSON.stringify(plusOne([1, 2, 9])));
+console.log(JSON.stringify(plusOne([4, 3, 2, 1])));
+console.log(JSON.stringify(plusOne([9, 9, 9])));
+
+
+
+
+
+/* Problem 18: Reverse String */
+
+function reverseString(s: string[]): void {
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        const temp = s[left];
+        s[left] = s[right];
+        s[right] = temp;
+
+        left++;
+        right--;
+    }
+}
+
+const reverseStringTest1 = ["h", "e", "l", "l", "o"];
+reverseString(reverseStringTest1);
+console.log(JSON.stringify(reverseStringTest1));
+
+const reverseStringTest2 = ["H", "a", "n", "n", "a", "h"];
+reverseString(reverseStringTest2);
+console.log(JSON.stringify(reverseStringTest2));
+
+
+
+
+
+
+/* Problem 19: Length of Last Word */
+
+function lengthOfLastWord(s: string): number {
+    const words = s.trim().split(" ");
+    return words[words.length - 1].length;
+}
+
+console.log(lengthOfLastWord("Hello World"));
+console.log(lengthOfLastWord("   fly me   to   the moon  "));
+console.log(lengthOfLastWord("luffy is still joyboy"));
+
+
+
+
+/* Problem 20: Longest Common Prefix */
+
+function longestCommonPrefix(strs: string[]): string {
+    if (strs.length === 0) {
+        return "";
+    }
+
+    let prefix = strs[0];
+
+    for (let i = 1; i < strs.length; i++) {
+        while (!strs[i].startsWith(prefix)) {
+            prefix = prefix.slice(0, -1);
+
+            if (prefix === "") {
+                return "";
+            }
+        }
+    }
+
+    return prefix;
+}
+
+console.log(JSON.stringify(longestCommonPrefix(["flower", "flow", "flight"])));
+console.log(JSON.stringify(longestCommonPrefix(["dog", "racecar", "car"])));
+console.log(JSON.stringify(longestCommonPrefix(["interspecies", "interstellar", "interstate"])));
